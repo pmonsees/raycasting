@@ -79,10 +79,8 @@ class Sphere:
             return t
 
 
-
 #
 # My simple test program...
-#
 #
 
 # Create a sphere of radius r = 30 centered at c = (0,0,-100).
