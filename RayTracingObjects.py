@@ -31,11 +31,11 @@ class Sphere(RTOType):
 
     def __init__(self, radius, center, color: np.ndarray = np.zeros([3, ]), channels: int = 3,
                  light_source: bool = False, light_color: np.ndarray = np.zeros([3, ]),
-                 light_strength: float = 0.0, specular_bounce_prob: float = 0.0):
+                 light_strength: float = 0.0, specular_power: float = 0.0):
         self.radius = radius
         self.center = np.array(center).reshape([3, ])
         self.color_info = MaterialInfo(channels, color, emits_light=light_source, emitted_color=light_color,
-                                       emitted_strength=light_strength, specular_probability=specular_bounce_prob)
+                                       emitted_strength=light_strength, specular_probability=specular_power)
 
     def intersect(self, ray: Ray) -> HitInfo:
         c_to_e = ray.o - self.center
@@ -63,10 +63,10 @@ class Plane(RTOType):
     p: np.ndarray = None
     norm: np.ndarray = None
 
-    def __init__(self, point1, point2, point3=None, color=np.zeros([3, ]), channels: int = 3,
+    def __init__(self, point1, point2, point3=None, color: np.ndarray = np.zeros([3, ]), channels: int = 3,
                  light_source: bool = False, light_color: np.ndarray = np.zeros([3, ]),
-                 light_strength: float = 0.0, specular_bounce_prob: float = 0.0):
-        # 3 constructor
+                 light_strength: float = 0.0, specular_power: float = 0.0):
+        # 3 point constructor
         if not isinstance(point3, type(None)):
             p1 = np.array(point1).reshape([3, ])
             p2 = np.array(point2).reshape([3, ])
@@ -82,7 +82,7 @@ class Plane(RTOType):
             self.norm = norm/np.linalg.norm(norm)
 
         self.color_info = MaterialInfo(channels, color, emits_light=light_source, emitted_color=light_color,
-                                       emitted_strength=light_strength, specular_probability=specular_bounce_prob)
+                                       emitted_strength=light_strength, specular_probability=specular_power)
 
     def intersect(self, ray: Ray) -> HitInfo:
         t = np.dot(self.p - ray.o, self.norm)/np.dot(ray.dir, self.norm)

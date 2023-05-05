@@ -106,14 +106,17 @@ class Camera:
         return ff.homo_to_points(self.camera_to_global @ ff.points_to_homo(to.reshape([3, 1]))).reshape([3, ])
 
     def ray_through_pixel(self, x: int, y: int, num_bounces: int = 0) -> Ray:
+        # shoots a ray through a given pixel, starts full white
         return Ray(self.loc, self.get_geo_coords(x, y), num_bounces,
                    RayColorInfo(self.num_channels, np.array([1, 1, 1])))
 
     def set_color(self, x: int, y: int, color: np.ndarray):
+        # sets the color of a pixel
         c = color.reshape([self.num_channels, ])
         self.image[x, y, :] = c[:]
 
     def get_image(self) -> np.ndarray:
+        # returns the array
         return np.uint8(self.image.transpose((1, 0, 2)) * 255)
 
     def __iter__(self):

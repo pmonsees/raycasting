@@ -33,16 +33,18 @@ class Ray:
 
 
 def ray_in_hemisphere(p: np.ndarray, norm: np.ndarray, ray: Ray, num_bounces: int = 0) -> Ray:
-    # new_direction = 2 * np.random.random(norm.shape) - 1
-    new_direction = np.random.standard_normal(norm.shape) + norm
+    # generates a ray in a hemisphere around the norm
+
+    new_direction = np.random.standard_normal(norm.shape)
 
     new_direction = new_direction * np.sign(np.dot(norm, new_direction))
-    new_direction = new_direction / np.linalg.norm(new_direction)
+    new_direction = new_direction / np.linalg.norm(new_direction) + norm
 
     return Ray(p, p + new_direction, num_bounces, ray.color)
 
 
 def specular_ray(p: np.ndarray, norm: np.ndarray, ray: Ray, num_bounces: int = 0) -> Ray:
+    # returns a ray reflected across the norm
     new_direction = ray.d - 2 * np.dot(ray.d, norm) * norm
 
     return Ray(p, p + new_direction, num_bounces, ray.color)

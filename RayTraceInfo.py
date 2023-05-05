@@ -22,12 +22,16 @@ class RayColorInfo:
         self.ray_color = self.__scale(self.ray_color)
 
     def __scale(self, color: np.ndarray = ray_color):
+        # scales a numpy array to be below 0
         scaled = color
         if np.max(scaled) > 1:
             scaled = scaled / np.max(scaled)
         return scaled
 
     def __add__(self, other):
+        # add some various options together, make sure to normalize using __scale
+        # handles RayColorInfo, MaterialInfo, numpy arrays, and ints
+        # for material info, does ray_color * material_color + emitted_light
         if isinstance(other, RayColorInfo):
             return RayColorInfo(self.channels, self.__scale(self.ray_color + other.ray_color))
         elif isinstance(other, MaterialInfo):
