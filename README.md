@@ -10,6 +10,13 @@ which I highly recommend passing on to the next generation of Computer Graphic A
 
 Some choice results from my algorithm:
 
+Test Images:
+![](ray_traced_images/Red_Ball_Light_Source_Test.png)
+![](ray_traced_images/Color_Blending_Test.png)
+![](ray_traced_images/Blue_Orb_Blue_Table_Shading.png)
+![](ray_traced_images/Blue_Orb_Grey_Table_Behind_The_Camera_Light.png)
+![](ray_traced_images/Two_Orb_Reflection_Test.png)
+
 Two orbs with only diffuse bouncing:
 
 ![Two orbs with only diffuse lighting](ray_traced_images/two_orbs_only_diffuse.png)
